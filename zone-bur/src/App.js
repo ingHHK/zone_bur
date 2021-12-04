@@ -6,33 +6,33 @@ import axios from "axios";
 export default class App extends React.Component {
   async getData() {
     const res = await axios.get('http://localhost:7071/api/datetimes');
+    return res.data.message; 
+}
 
-    return res.data.message;
-  }
+constructor(...args) {
+  super(...args);
+  this.state = {data: null};
+}
 
-  constructor(...args) {
-    super(...args);
-    this.state = {data: null};
-  }
-
-  componentDidMount() {
-    if(!this.state.data) {
+componentDidMount() {
+  if (!this.state.data) {
       (async () => {
-        try {
-          this.setState({data: await this.getData()});
-        } catch(e) {
-        }
+          try {
+             this.setState({data: await this.getData()});
+          } catch (e) {
+          }
       })();
-    }
   }
 
-  render() {
+}
+
+render() {
   return (
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
-          Edit <code>src/App.js</code> and save to reload.
+          MLSA_HackaLearn
         </p>
         <a
           className="App-link"
@@ -40,10 +40,12 @@ export default class App extends React.Component {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Learn React
+          Time : {this.state.data}
         </a>
       </header>
     </div>
   );
-}
-}
+
+  }
+
+  }
